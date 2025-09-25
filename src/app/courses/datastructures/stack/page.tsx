@@ -1,36 +1,10 @@
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
+import MobileNav from "@/components/MobileNav";
 
 export default function Stack() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
-                Beyond Shyam
-              </Link>
-            </div>
-            <div className="flex items-center space-x-8">
-              <Link href="/courses" className="text-blue-600 dark:text-blue-400 font-medium">
-                Courses
-              </Link>
-              <Link href="/roadmap" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Roadmap
-              </Link>
-              <Link href="/videos" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Videos
-              </Link>
-              <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                About
-              </Link>
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MobileNav />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
