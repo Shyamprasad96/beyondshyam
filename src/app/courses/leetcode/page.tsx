@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
+import MobileNav from "@/components/MobileNav";
 import { useState } from "react";
 
 const problemSets = {
@@ -93,53 +93,24 @@ export default function LeetCode() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
-                Beyond Shyam
-              </Link>
-            </div>
-            <div className="flex items-center space-x-8">
-              <Link href="/courses" className="text-blue-600 dark:text-blue-400 font-medium">
-                Courses
-              </Link>
-              <Link href="/roadmap" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Roadmap
-              </Link>
-              <Link href="/videos" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Videos
-              </Link>
-              <Link href="/personal" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                Personal
-              </Link>
-              <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                About
-              </Link>
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <MobileNav />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Breadcrumb */}
-        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
+        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-6 px-2 sm:px-0">
           <Link href="/courses" className="hover:text-blue-600 dark:hover:text-blue-400">Courses</Link>
           <span>/</span>
           <span>LeetCode Problems</span>
         </div>
 
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">LeetCode Problems</h1>
-          <p className="text-gray-600 dark:text-gray-400">Curated problem sets with direct links to practice</p>
+        <div className="mb-6 sm:mb-8 text-center sm:text-left">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 px-2 sm:px-0">LeetCode Problems</h1>
+          <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-0">Curated problem sets with direct links to practice</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex space-x-1 mb-8 bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
+        <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-1 mb-6 sm:mb-8 bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
           {Object.keys(problemSets).map((setName) => (
             <button
               key={setName}
@@ -147,7 +118,7 @@ export default function LeetCode() {
                 setActiveTab(setName);
                 setShowAll(false);
               }}
-              className={`px-4 py-2 rounded-md font-medium transition-colors ${
+              className={`px-3 sm:px-4 py-2 rounded-md font-medium transition-colors text-sm sm:text-base ${
                 activeTab === setName
                   ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm'
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
