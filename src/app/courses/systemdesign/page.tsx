@@ -1,62 +1,80 @@
+"use client";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
+import { useState, useEffect } from "react";
 
-const systemDesignTopics = [
+const systemDesignParts = [
   {
-    name: "System Design Fundamentals",
-    count: 8,
-    difficulty: "Medium",
-    videoUrl: "https://youtube.com/watch?v=example1",
-    description: "Learn the basics of distributed systems and scalability"
+    part: "Part 0",
+    name: "Interview Orientation",
+    topicCount: 3,
+    difficulty: "Easy",
+    href: "/courses/systemdesign/part-0",
+    description: "Master the interview process and mindset for system design"
   },
   {
-    name: "Load Balancing",
-    count: 5,
+    part: "Part 1",
+    name: "Foundations & Abstractions",
+    topicCount: 3,
     difficulty: "Medium",
-    videoUrl: "https://youtube.com/watch?v=example2",
-    description: "Distribute traffic across multiple servers efficiently"
+    href: "/courses/systemdesign/part-1",
+    description: "Build strong foundations with key abstractions and models"
   },
   {
-    name: "Database Design",
-    count: 12,
+    part: "Part 2",
+    name: "Networking & Delivery",
+    topicCount: 6,
+    difficulty: "Medium",
+    href: "/courses/systemdesign/part-2",
+    description: "Master networking protocols and global content delivery"
+  },
+  {
+    part: "Part 3",
+    name: "APIs & Contracts",
+    topicCount: 5,
+    difficulty: "Medium",
+    href: "/courses/systemdesign/part-3",
+    description: "Design robust APIs with proper contracts and security"
+  },
+  {
+    part: "Part 4",
+    name: "Data Modeling & Indexing",
+    topicCount: 6,
     difficulty: "Hard",
-    videoUrl: "https://youtube.com/watch?v=example3",
-    description: "SQL vs NoSQL, sharding, replication, and consistency"
+    href: "/courses/systemdesign/part-4",
+    description: "Master data modeling and advanced indexing strategies"
   },
   {
-    name: "Caching Strategies",
-    count: 6,
-    difficulty: "Medium",
-    videoUrl: "https://youtube.com/watch?v=example4",
-    description: "Redis, Memcached, CDN, and cache patterns"
-  },
-  {
-    name: "Message Queues",
-    count: 7,
+    part: "Part 5",
+    name: "Distributed Systems Essentials",
+    topicCount: 6,
     difficulty: "Hard",
-    videoUrl: "https://youtube.com/watch?v=example5",
-    description: "Kafka, RabbitMQ, and asynchronous processing"
+    href: "/courses/systemdesign/part-5",
+    description: "Understand core distributed systems concepts and trade-offs"
   },
   {
-    name: "Microservices Architecture",
-    count: 10,
+    part: "Part 6",
+    name: "Core Building Blocks",
+    topicCount: 9,
     difficulty: "Hard",
-    videoUrl: "https://youtube.com/watch?v=example6",
-    description: "Service decomposition and inter-service communication"
+    href: "/courses/systemdesign/part-6",
+    description: "Build systems with essential distributed components"
   },
   {
-    name: "API Design",
-    count: 8,
+    part: "Part 7",
+    name: "Reliability & Ops",
+    topicCount: 4,
     difficulty: "Medium",
-    videoUrl: "https://youtube.com/watch?v=example7",
-    description: "REST, GraphQL, and API versioning strategies"
+    href: "/courses/systemdesign/part-7",
+    description: "Ensure system reliability and operational excellence"
   },
   {
-    name: "Monitoring & Observability",
-    count: 5,
-    difficulty: "Medium",
-    videoUrl: "https://youtube.com/watch?v=example8",
-    description: "Logging, metrics, tracing, and alerting systems"
+    part: "Part 8",
+    name: "Practice & Capstone",
+    topicCount: 5,
+    difficulty: "Hard",
+    href: "/courses/systemdesign/part-8",
+    description: "Apply everything with practice interviews and capstone project"
   }
 ];
 
@@ -106,6 +124,67 @@ const getComplexityColor = (complexity: string) => {
 };
 
 export default function SystemDesign() {
+  const [progress, setProgress] = useState({
+    partsCompleted: 0,
+    topicsCompleted: 0,
+    systemsCompleted: 0,
+    technologiesCompleted: 0
+  });
+
+  useEffect(() => {
+    const calculateProgress = () => {
+      let totalTopics = 0;
+      let completedTopics = 0;
+      let completedParts = 0;
+      
+      // Check each part's progress
+      const partSizes = [3, 3, 6, 5, 6, 6, 9, 4, 5]; // Topics per part
+      
+      partSizes.forEach((size, index) => {
+        const saved = localStorage.getItem(`systemdesign-part${index}-progress`);
+        if (saved) {
+          const partProgress = JSON.parse(saved);
+          const completed = partProgress.filter(Boolean).length;
+          completedTopics += completed;
+          if (completed === size) completedParts++;
+        }
+        totalTopics += size;
+      });
+      
+      // Check technologies progress
+      const techSaved = localStorage.getItem('systemdesign-technologies-progress');
+      let technologiesCompleted = 0;
+      if (techSaved) {
+        technologiesCompleted = JSON.parse(techSaved).filter(Boolean).length;
+      }
+      
+      // Check systems progress (placeholder for now)
+      const systemsSaved = localStorage.getItem('systemdesign-systems-progress');
+      let systemsCompleted = 0;
+      if (systemsSaved) {
+        systemsCompleted = JSON.parse(systemsSaved).filter(Boolean).length;
+      }
+      
+      setProgress({
+        partsCompleted: completedParts,
+        topicsCompleted: completedTopics,
+        systemsCompleted: systemsCompleted,
+        technologiesCompleted: technologiesCompleted
+      });
+    };
+    
+    calculateProgress();
+    
+    // Recalculate when localStorage changes
+    const handleStorageChange = () => calculateProgress();
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+  
+  const totalTopics = 47; // 45 part topics + 2 extra
+  const progressPercentage = Math.round((progress.topicsCompleted / totalTopics) * 100);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <MobileNav />
@@ -124,96 +203,140 @@ export default function SystemDesign() {
           <p className="text-gray-600 dark:text-gray-400">Learn to design scalable distributed systems with real-world examples</p>
         </div>
 
-        {/* Fundamentals Section */}
+        {/* Course Parts Section */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Fundamentals</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Course Parts</h2>
           <div className="grid gap-4">
-            {systemDesignTopics.map((topic, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-4 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{topic.name}</h3>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(topic.difficulty)}`}>
-                        {topic.difficulty}
+            {systemDesignParts.map((part, index) => (
+              <Link key={index} href={part.href} className="group">
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-all duration-300 group-hover:scale-[1.02] relative">
+                  {/* Status Tag */}
+                  <div className="absolute top-4 right-4">
+                    {index === 0 ? (
+                      <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-1 rounded-full text-xs font-medium">
+                        In Progress
                       </span>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">{topic.description}</p>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                      {topic.count} concepts
-                    </div>
+                    ) : (
+                      <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-2 py-1 rounded-full text-xs font-medium">
+                        Coming Soon
+                      </span>
+                    )}
                   </div>
                   
-                  <div className="flex items-center space-x-3 ml-6">
-                    <a 
-                      href={topic.videoUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                    >
-                      <span className="text-sm">▶</span>
-                      <span className="text-sm font-medium">Watch Video</span>
-                    </a>
-                    <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
-                      <span className="text-sm font-medium">Learn</span>
-                    </button>
+                  <div className="flex items-center justify-between pr-20">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-4 mb-2">
+                        <span className="text-sm font-bold text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900 px-2 py-1 rounded">
+                          {part.part}
+                        </span>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{part.name}</h3>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(part.difficulty)}`}>
+                          {part.difficulty}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">{part.description}</p>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {part.topicCount} topics
+                      </div>
+                    </div>
+                    
+                    <div className="text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform">
+                      →
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
+        </div>
+
+        {/* Key Technologies Section */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Key Technologies</h2>
+          <Link href="/courses/systemdesign/technologies" className="group">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-all duration-300 group-hover:scale-[1.02] relative">
+              {/* Status Tag */}
+              <div className="absolute top-4 right-4">
+                <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-2 py-1 rounded-full text-xs font-medium">
+                  Coming Soon
+                </span>
+              </div>
+              
+              <div className="flex items-center justify-between pr-20">
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">Essential Technologies</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Master the key technologies used in modern distributed systems</p>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    10 technologies • Redis, Kafka, Elasticsearch, API Gateway, and more
+                  </div>
+                </div>
+                
+                <div className="text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+                  →
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
 
         {/* Real-World Systems Section */}
         <div className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Real-World System Designs</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {realWorldSystems.map((system, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{system.name}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">{system.description}</p>
+          <Link href="/courses/systemdesign/systems" className="group">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-all duration-300 group-hover:scale-[1.02] relative">
+              {/* Status Tag */}
+              <div className="absolute top-4 right-4">
+                <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-2 py-1 rounded-full text-xs font-medium">
+                  Coming Soon
+                </span>
+              </div>
+              
+              <div className="flex items-center justify-between pr-20">
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">System Design Case Studies</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Practice with real-world system design problems and solutions</p>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    4 systems • Twitter, URL Shortener, Chat System, Video Streaming
                   </div>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor(system.complexity)}`}>
-                    {system.complexity}
-                  </span>
                 </div>
                 
-                <div className="flex space-x-3">
-                  <a 
-                    href={system.videoUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                  >
-                    <span className="text-sm">▶</span>
-                    <span className="text-sm font-medium">Watch Design</span>
-                  </a>
-                  <button className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
-                    <span className="text-sm font-medium">Practice</span>
-                  </button>
+                <div className="text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+                  →
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          </Link>
         </div>
 
         {/* Progress Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-8 text-white">
-          <h3 className="text-2xl font-bold mb-4">System Design Mastery</h3>
-          <div className="grid md:grid-cols-3 gap-6">
+        <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-6 sm:p-8 text-white">
+          <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center">System Design Mastery Progress</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold">0/8</div>
-              <div className="text-white/80">Topics Completed</div>
+              <div className="text-2xl sm:text-3xl font-bold">{progress.partsCompleted}/9</div>
+              <div className="text-white/80 text-xs sm:text-sm">Parts Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold">0/4</div>
-              <div className="text-white/80">Systems Designed</div>
+              <div className="text-2xl sm:text-3xl font-bold">{progress.topicsCompleted}/{totalTopics}</div>
+              <div className="text-white/80 text-xs sm:text-sm">Topics Mastered</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold">0%</div>
-              <div className="text-white/80">Course Progress</div>
+              <div className="text-2xl sm:text-3xl font-bold">{progress.technologiesCompleted}/10</div>
+              <div className="text-white/80 text-xs sm:text-sm">Technologies Learned</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold">{progressPercentage}%</div>
+              <div className="text-white/80 text-xs sm:text-sm">Course Progress</div>
+            </div>
+          </div>
+          <div className="mt-6">
+            <div className="text-xs sm:text-sm text-white/80 mb-2 text-center">
+              {progress.partsCompleted === 0 ? 'Next: Part 0 - Interview Orientation' : 
+               progress.partsCompleted < 9 ? `Continue: Part ${progress.partsCompleted}` : 
+               'Course Complete! 🎉'}
+            </div>
+            <div className="w-full bg-white/20 rounded-full h-2">
+              <div className="bg-white h-2 rounded-full transition-all duration-500" style={{width: `${progressPercentage}%`}}></div>
             </div>
           </div>
         </div>
