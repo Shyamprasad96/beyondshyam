@@ -5,14 +5,6 @@ import { useState, useEffect } from "react";
 
 const systemDesignParts = [
   {
-    part: "Part 0",
-    name: "Interview Orientation",
-    topicCount: 3,
-    difficulty: "Easy",
-    href: "/courses/systemdesign/part-0",
-    description: "Master the interview process and mindset for system design"
-  },
-  {
     part: "Part 1",
     name: "Foundations & Abstractions",
     topicCount: 3,
@@ -138,10 +130,10 @@ export default function SystemDesign() {
       let completedParts = 0;
       
       // Check each part's progress
-      const partSizes = [3, 3, 6, 5, 6, 6, 9, 4, 5]; // Topics per part
+      const partSizes = [3, 6, 5, 6, 6, 9, 4, 5]; // Topics per part
       
       partSizes.forEach((size, index) => {
-        const saved = localStorage.getItem(`systemdesign-part${index}-progress`);
+        const saved = localStorage.getItem(`systemdesign-part${index + 1}-progress`);
         if (saved) {
           const partProgress = JSON.parse(saved);
           const completed = partProgress.filter(Boolean).length;
@@ -182,7 +174,7 @@ export default function SystemDesign() {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
   
-  const totalTopics = 47; // 45 part topics + 2 extra
+  const totalTopics = 44; // 42 part topics + 2 extra
   const progressPercentage = Math.round((progress.topicsCompleted / totalTopics) * 100);
 
   return (
@@ -313,7 +305,7 @@ export default function SystemDesign() {
           <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center">System Design Mastery Progress</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold">{progress.partsCompleted}/9</div>
+              <div className="text-2xl sm:text-3xl font-bold">{progress.partsCompleted}/8</div>
               <div className="text-white/80 text-xs sm:text-sm">Parts Completed</div>
             </div>
             <div className="text-center">
@@ -331,8 +323,8 @@ export default function SystemDesign() {
           </div>
           <div className="mt-6">
             <div className="text-xs sm:text-sm text-white/80 mb-2 text-center">
-              {progress.partsCompleted === 0 ? 'Next: Part 0 - Interview Orientation' : 
-               progress.partsCompleted < 9 ? `Continue: Part ${progress.partsCompleted}` : 
+              {progress.partsCompleted === 0 ? 'Next: Part 1 - Foundations & Abstractions' : 
+               progress.partsCompleted < 8 ? `Continue: Part ${progress.partsCompleted + 1}` : 
                'Course Complete! 🎉'}
             </div>
             <div className="w-full bg-white/20 rounded-full h-2">
