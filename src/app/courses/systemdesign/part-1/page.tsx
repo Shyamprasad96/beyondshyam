@@ -16,7 +16,7 @@ const part1Topics = [
   },
   {
     name: "Non‑Functional Requirements",
-    videoUrl: "https://youtube.com/watch?v=nfr", 
+    videoUrl: "https://www.youtube.com/watch?v=0-UYK_rLjaA", 
     contentUrl: "/courses/systemdesign/part-1/non-functional-requirements",
     description: "Scalability, reliability, availability, and performance requirements",
     subtopics: [
