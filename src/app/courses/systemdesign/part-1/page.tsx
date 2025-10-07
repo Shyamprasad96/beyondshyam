@@ -26,7 +26,7 @@ const part1Topics = [
   },
   {
     name: "Failure & Consistency Models",
-    videoUrl: "https://youtube.com/watch?v=consistency",
+    videoUrl: "https://www.youtube.com/watch?v=Sl4VC7-xMKQ",
     contentUrl: "/courses/systemdesign/part-1/failure-consistency", 
     description: "Understanding different failure modes and consistency guarantees",
     subtopics: [
