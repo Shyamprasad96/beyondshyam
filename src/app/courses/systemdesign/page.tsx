@@ -204,15 +204,15 @@ export default function SystemDesign() {
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-all duration-300 group-hover:scale-[1.02] relative">
                   {/* Status Tag */}
                   <div className="absolute top-4 right-4">
-                    {index === 0 ? (
+                    {index === 1 ? (
                       <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-1 rounded-full text-xs font-medium">
                         In Progress
                       </span>
-                    ) : (
+                    ) : index > 1 ? (
                       <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-2 py-1 rounded-full text-xs font-medium">
                         Coming Soon
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   
                   <div className="flex items-center justify-between pr-20">
