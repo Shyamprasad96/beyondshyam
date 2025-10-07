@@ -274,7 +274,7 @@ export default function FailureConsistency() {
                     Requires coordination → slower, less scalable.
                   </p>
                   <p className="text-red-800 dark:text-red-300">
-                    🧩 Used when correctness > speed (e.g., money transfers)
+                    🧩 Used when correctness {'>'}  speed (e.g., money transfers)
                   </p>
                 </div>
               </div>
@@ -321,7 +321,7 @@ export default function FailureConsistency() {
                     Faster, more scalable → but users may see stale data temporarily.
                   </p>
                   <p className="text-green-800 dark:text-green-300">
-                    🧩 Used when availability > strict correctness (e.g., likes, feeds)
+                    🧩 Used when availability {'>'} strict correctness (e.g., likes, feeds)
                   </p>
                 </div>
               </div>
