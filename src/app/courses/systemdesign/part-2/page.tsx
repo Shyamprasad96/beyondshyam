@@ -4,8 +4,8 @@ import MobileNav from "@/components/MobileNav";
 const part2Topics = [
   {
     name: "Networking 101 (L3/L4/L7)",
-    videoUrl: "https://youtube.com/watch?v=networking101",
-    contentUrl: "/courses/systemdesign/part-2/networking-basics",
+    videoUrl: "https://www.youtube.com/watch?v=mPodLpVf0Gw",
+    contentUrl: "/courses/systemdesign/part-2/networking-101",
     description: "Understanding network layers and protocols"
   },
   {
