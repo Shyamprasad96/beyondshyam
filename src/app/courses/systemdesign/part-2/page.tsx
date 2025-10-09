@@ -10,7 +10,7 @@ const part2Topics = [
   },
   {
     name: "IP & Routing Basics",
-    videoUrl: "https://youtube.com/watch?v=ip-routing", 
+    videoUrl: "https://www.youtube.com/watch?v=0gfMrH_7HTA", 
     contentUrl: "/courses/systemdesign/part-2/ip-routing",
     description: "How data travels across networks and routing fundamentals"
   },
