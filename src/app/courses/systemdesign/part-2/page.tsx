@@ -16,13 +16,13 @@ const part2Topics = [
   },
   {
     name: "Transport Protocols (UDP, TCP, QUIC)",
-    videoUrl: "https://youtube.com/watch?v=transport-protocols",
+    videoUrl: "https://youtu.be/wwOeVBd9Q_U",
     contentUrl: "/courses/systemdesign/part-2/transport-protocols", 
     description: "Comparing different transport layer protocols and their use cases"
   },
   {
     name: "Application Protocols (HTTP, REST, GraphQL, gRPC, SSE, WebSockets, WebRTC, Polling)",
-    videoUrl: "https://youtube.com/watch?v=app-protocols",
+    videoUrl: "https://youtu.be/R60cE3xaXSA",
     contentUrl: "/courses/systemdesign/part-2/application-protocols", 
     description: "Modern application layer protocols for different communication patterns"
   },
